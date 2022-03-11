@@ -2,22 +2,13 @@ package com.andrewlinton.grokkingalgorithms;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 public class TestQuicksort {
 
     @Test
     public void testQuickSort() {
-        /*int size = 100;
+        int size = 100;
         int[] a = Array.getRandomArray(size);
-        Integer[] b = new Integer[size];
-        for (int i=0; i<size; i++) {
-            b[i] = a[i];
-        }*/
-
-        int size = 4;
-        Integer[] b = new Integer[] {10, 5, 2, 3};
-        Integer[] sorted = quicksort(b);
+        int[] sorted = quicksort(a);
 
         assert(sorted != null);
         assert(sorted.length == size);
@@ -26,39 +17,47 @@ public class TestQuicksort {
         }
     }
 
-    Integer[] quicksort(Integer[] a) {
+    // TODO: Speed up array operations
+
+    int[] quicksort(int[] a) {
         if (a.length < 2){
             return a;
         } else {
             int pivot = a.length/2;
             int pivotValue = a[pivot];
-            ArrayList<Integer> less = new ArrayList<Integer>();
-            ArrayList<Integer> greater = new ArrayList<Integer>();
-            for (int c:a) {
-                if (c <= pivotValue) {
-                    less.add(c);
-                } else {
-                    greater.add(c);
+            int[] less = new int[a.length];
+            int lessPos = 0;
+            int[] greater = new int[a.length];
+            int greaterPos = 0;
+
+            for (int i=0; i<a.length; i++) {
+                if (i!=pivot) {
+                    if (a[i] <= pivotValue) {
+                        less[lessPos++] = a[i];
+                    } else {
+                        greater[greaterPos++] = a[i];
+                    }
                 }
-            }
-            Integer[] lessArray = new Integer[less.size()];
-            for (int i=0; i<less.size(); i++) {
-                lessArray[i] = less.get(i);
-            }
-            Integer[] greaterArray = new Integer[greater.size()];
-            for (int i=0; i<greater.size(); i++) {
-                greaterArray[i] = greater.get(i);
+
             }
 
-            Integer[] lessArray1 = quicksort(lessArray);
-            Integer[] greaterArray1 = quicksort(greaterArray);
-            Integer[] ret = new Integer[lessArray1.length + greaterArray1.length];
+            int[] less1 = new int[lessPos];
+            for (int i=0; i<lessPos; i++) {
+                less1[i] = less[i];
+            }
+            int[] lessArray1 = quicksort(less1);
+            int[] greater1 = new int[greaterPos];
+            for (int i=0; i<greaterPos; i++) {
+                greater1[i] = greater[i];
+            }
+            int[] greaterArray1 = quicksort(greater1);
+            int[] ret = new int[less1.length + greater1.length + 1];
             for (int i=0; i<lessArray1.length; i++) {
                 ret[i] = lessArray1[i];
             }
-//            ret[lessArray1.length] = pivot;
+            ret[lessArray1.length] = pivotValue;
             for (int i=0; i<greaterArray1.length; i++) {
-                ret[i + lessArray1.length] = greaterArray1[i];
+                ret[i + lessArray1.length + 1] = greaterArray1[i];
             }
             return ret;
         }
