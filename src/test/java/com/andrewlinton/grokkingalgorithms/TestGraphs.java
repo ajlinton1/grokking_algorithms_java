@@ -53,4 +53,43 @@ public class TestGraphs {
         assert(found);
 
     }
+
+    @Test
+    public void testDijkstra() {
+        var start = new Node("Start");
+        var A = new Node("A");
+        var B = new Node("B");
+        var finish = new Node("Finish");
+        start.getEdges().add(new Edge(A, 6));
+        start.getEdges().add(new Edge(B, 2));
+        A.getEdges().add(new Edge(finish, 1));
+        B.getEdges().add(new Edge(A, 3));
+        B.getEdges().add(new Edge(finish, 5));
+
+        var costs = new HashMap<String, Integer>();
+        costs.put("A", Integer.MAX_VALUE);
+        costs.put("B", Integer.MAX_VALUE);
+        costs.put("Finish", Integer.MAX_VALUE);
+
+        Queue<Node> connections = new LinkedList<>();
+        Set<String> visited = new HashSet<>();
+
+        connections.add(start);
+        while (!connections.isEmpty()) {
+            Node node = connections.remove();
+            if (!visited.contains(node.getName())) {
+                var edges = node.getEdges();
+                for (Edge edge: edges) {
+                    connections.add(edge.getNode());
+                    var currentCost = costs.get(edge.getNode().getName());
+                    if (edge.getWeight() < currentCost) {
+                        costs.put(edge.getNode().getName(), edge.getWeight());
+                    }
+                }
+                visited.add(node.getName());
+            }
+        }
+
+        assert(true);
+    }
 }

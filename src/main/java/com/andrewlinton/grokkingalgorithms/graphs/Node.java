@@ -8,9 +8,12 @@ public class Node {
     String name;
     ArrayList<Node> connections;
 
+    ArrayList<Edge> edges;
+
     public Node(String name) {
         this.name = name;
         connections = new ArrayList<>();
+        edges = new ArrayList<>();
     }
 
     public void addConnection(Node node) {
@@ -24,4 +27,13 @@ public class Node {
     public String getName() {
         return name;
     }
+
+    public ArrayList<Edge> getEdges() {
+        return edges;
+    }
+
+    public void setEdges(ArrayList<Edge> edges) {
+        this.edges = edges;
+    }
+
 }
