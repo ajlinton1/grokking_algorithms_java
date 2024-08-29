@@ -1,6 +1,6 @@
 package com.andrewlinton.grokkingalgorithms;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import com.andrewlinton.grokkingalgorithms.graphs.*;
 
 import java.util.*;

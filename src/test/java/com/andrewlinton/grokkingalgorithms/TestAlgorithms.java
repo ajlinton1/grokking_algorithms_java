@@ -1,11 +1,13 @@
 package com.andrewlinton.grokkingalgorithms;
 
-import org.junit.jupiter.api.Test;
+import junit.framework.TestCase;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.junit.Test;
 
 public class TestAlgorithms {
 
